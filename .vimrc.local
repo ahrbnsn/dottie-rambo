@@ -1,0 +1,25 @@
+" Mappings ------- {{{
+inoremap <c-u> <esc>viwUea
+nnoremap + ddkP
+nnoremap - ddp
+nnoremap <leader>ev :vsplit ~/.vimrc.local<cr>
+" }}}
+" Abbreviations ------- {{{
+iabbrev funciton function
+iabbrev fucniton function
+" }}}
+" Ruby abbeviations ------- {{{
+augroup filetype_ruby
+  autocmd!
+  autocmd FileType ruby :iabbrev <buffer> debugger binding.pry
+augroup END
+" }}}
+" Vimscript file settings --------- {{{
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup end
+" }}}
+" General -------- {{{
+set noswapfile
+" }}}
