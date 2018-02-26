@@ -12,6 +12,7 @@ export PROJECT_DIR='/Users/ashleyrobinson/workspace'
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
+source '/Users/ashleyrobinson/workspace/git-subrepo/.rc'
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
