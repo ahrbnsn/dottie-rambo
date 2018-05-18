@@ -101,7 +101,10 @@ alias sourcezsh="source ~/.zshrc"
 alias rcop="git diff --name-only --cached | grep '\.rb' | xargs bundle exec rubocop -a"
 alias stash="git stash"
 alias rewind="git reset HEAD~1"
+alias gadd="git add -u"
 
+# http://dev.scottw.com/zsh-rake-parameters
+alias rake='noglob bundle exec rake'
 # https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
