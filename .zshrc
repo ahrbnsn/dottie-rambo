@@ -3,10 +3,8 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/ashleyrobinson/.oh-my-zsh
-export UMBRELLA_PROJECT_PATH='../umbrella'
 export APP_DIR='/Applications'
 
-export PROJECT_DIR='/Users/ashleyrobinson/workspace'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -64,7 +62,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+export EDITOR='vim'
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -92,7 +90,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias gto="git-open"
 alias be="bundle exec"
-alias mux="tmuxinator"
 alias prune="git branch | grep -v 'master' | xargs git branch -D"
 alias amendit="git commit --amend --no-edit"
 alias gpof="git push origin head -f"
@@ -125,14 +122,7 @@ source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # recommended by brew doctor
 export PATH="/usr/local/bin:$PATH"
-eval "$(rbenv init - zsh --no-rehash)"
-
 
 # Secret config
 [[ -f ~/.zshrc.secrets ]] && source ~/.zshrc.secrets
 
-# Kubernetes magic
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-eval "$(kubectl completion zsh)"
-eval "$(helm completion zsh)"
