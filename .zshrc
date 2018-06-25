@@ -102,11 +102,14 @@ alias rcop="git diff --name-only --cached | grep '\.rb' | xargs bundle exec rubo
 alias stash="git stash"
 alias rewind="git reset HEAD~1"
 alias gadd="git add -u"
+alias sane="stty sane"
 
 # http://dev.scottw.com/zsh-rake-parameters
 alias rake='noglob bundle exec rake'
+#
 # https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias configadd='config add -u'
 
 # music stations
 # http://www.cbc.ca/radio/includes/streams.html
