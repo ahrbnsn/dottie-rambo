@@ -3,6 +3,7 @@ inoremap <c-u> <esc>viwUea
 nnoremap + ddkP
 nnoremap - ddp
 nnoremap <leader>ev :vsplit ~/.vimrc.local<cr>
+imap jk <Esc>
 " }}}
 " Abbreviations ------- {{{
 iabbrev funciton function
@@ -11,8 +12,8 @@ iabbrev fucniton function
 " Ruby abbeviations ------- {{{
 augroup filetype_ruby
   autocmd!
-  autocmd FileType ruby :iabbrev <buffer> debugger binding.pry
-augroup END
+  autocmd filetype ruby :iabbrev <buffer> debugger binding.pry
+augroup end
 " }}}
 " Vimscript file settings --------- {{{
 augroup filetype_vim
