@@ -103,6 +103,13 @@ alias stash="git stash"
 alias rewind="git reset HEAD~1"
 alias gadd="git add -u"
 alias sane="stty sane"
+alias im="vim"
+alias et="ssh 192.168.1.133"
+alias controlc="ssh petey@192.168.1.1"
+alias pete="ssh petey@192.168.1.1"
+alias ip="curl -s http://checkip.dyndns.org/ | sed 's/[a-zA-Z<>/ :]//g'"
+alias :qall="exit"
+alias xit="exit"
 
 # http://dev.scottw.com/zsh-rake-parameters
 alias rake='noglob bundle exec rake'
