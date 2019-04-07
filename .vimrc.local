@@ -1,3 +1,4 @@
+
 " Mappings ------- {{{
 inoremap <c-u> <esc>viwUea
 nnoremap + ddkP
@@ -23,4 +24,5 @@ augroup end
 " }}}
 " General -------- {{{
 set noswapfile
+set clipboard=unnamed
 " }}}

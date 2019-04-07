@@ -12,7 +12,7 @@ export PROJECT_DIR='/Users/ashleyrobinson/workspace'
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
-source '/Users/ashleyrobinson/workspace/git-subrepo/.rc'
+# source '/Users/ashleyrobinson/workspace/git-subrepo/.rc'
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -59,7 +59,9 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+source /Users/ashleyrobinson/factory/plexit.sh
 # Jump jump!
+
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 # User configuration
@@ -138,11 +140,6 @@ export PATH="/usr/local/bin:$PATH"
 eval "$(rbenv init - zsh --no-rehash)"
 
 
+
 # Secret config
 [[ -f ~/.zshrc.secrets ]] && source ~/.zshrc.secrets
-
-# Kubernetes magic
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-eval "$(kubectl completion zsh)"
-eval "$(helm completion zsh)"
