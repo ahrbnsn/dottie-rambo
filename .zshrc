@@ -135,6 +135,4 @@ source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # recommended by brew doctor
 export PATH="/usr/local/bin:$PATH"
 
-
-# Secret config
 [[ -f ~/.zshrc.secrets ]] && source ~/.zshrc.secrets
