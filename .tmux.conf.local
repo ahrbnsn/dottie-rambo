@@ -278,7 +278,10 @@ bind-key -n C-S-Right swap-window -t +1
 # allow renaming of windows by tmuxinator
 set-window-option -g allow-rename off
 set-window-option -g automatic-rename off
-#
+
+# No more dinging
+set -g bell-action none
+
 # Smart pane switching with awareness of Vim splits.
 # See: https://github.com/christoomey/vim-tmux-navigator
 # is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
