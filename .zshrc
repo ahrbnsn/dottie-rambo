@@ -1,6 +1,10 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+bindkey -M viins 'jk' vi-cmd-mode
+#https://github.com/robbyrussell/oh-my-zsh/issues/1720#issuecomment-499812609
+bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/ashleyrobinson/.oh-my-zsh
 export APP_DIR='/Applications'
@@ -8,7 +12,9 @@ export APP_DIR='/Applications'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ZSH_THEME="agnoster"
 ZSH_THEME="robbyrussell"
+eval "$(rbenv init -)"
 
 # source '/Users/ashleyrobinson/workspace/git-subrepo/.rc'
 # Uncomment the following line to use case-sensitive completion.
@@ -24,7 +30,7 @@ ZSH_THEME="robbyrussell"
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
 
-# Uncomment the following line to disable colors in ls.
+# Uncomment the following line to disable colors in ls.RT
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
@@ -53,11 +59,10 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
-source /Users/ashleyrobinson/factory/plexit.sh
 # Jump jump!
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
@@ -97,7 +102,7 @@ alias amendit="git commit --amend --no-edit"
 alias gpof="git push origin head -f"
 alias editzsh="vim ~/.zshrc"
 alias sourcezsh="source ~/.zshrc"
-alias rcop="git diff --name-only --cached | grep '\.rb' | xargs bundle exec rubocop -a"
+alias rcop="git diff --name-only --cached | grep '\.rb' | xargs dox-do rubocop -a"
 alias stash="git stash"
 alias rewind="git reset HEAD~1"
 alias gadd="git add -u"
@@ -124,15 +129,23 @@ alias kexp="$APP_DIR/VLC.app/Contents/MacOS/VLC http://live-aacplus-64.kexp.org/
 alias radiooff="pkill -9 VLC"
 alias cbc="$APP_DIR/VLC.app/Contents/MacOS/VLC http://cbc_r1_vcr.akacast.akamaistream.net/7/723/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vcr --intf=rc"
 
-export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 export GIT_EDITOR=vim
 
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+w
 . `brew --prefix`/etc/profile.d/z.sh
 
 # recommended by brew doctor
 export PATH="/usr/local/bin:$PATH"
 
 [[ -f ~/.zshrc.secrets ]] && source ~/.zshrc.secrets
+
+# doximity
+eval "$("/Users/ashleyrobinson/work/dox-compose/bin/dox-init")"
+alias goc="open https://github.com/doximity/campaigns/"
+alias go='f() { open https://github.com/doximity/$1 };f'
+alias startem="dox-dc up campaigns email-delivery-workers activities-workers campaigns-workers doximity doximity-client-vue"
+alias theworkers="dox-dc up campaigns-daemons activities-daemons"
+
