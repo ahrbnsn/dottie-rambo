@@ -100,7 +100,7 @@ alias be="bundle exec"
 alias prune="git branch | grep -v 'master' | xargs git branch -D"
 alias amendit="git commit --amend --no-edit"
 alias gpof="git push origin head -f"
-alias editzsh="vim ~/.zshrc"
+alias editzsh="vim ~/.zshrc && source ~/.zshrc"
 alias sourcezsh="source ~/.zshrc"
 alias rcop="git diff --name-only --cached | grep '\.rb' | xargs dox-do rubocop -a"
 alias stash="git stash"
@@ -129,6 +129,8 @@ alias kexp="$APP_DIR/VLC.app/Contents/MacOS/VLC http://live-aacplus-64.kexp.org/
 alias radiooff="pkill -9 VLC"
 alias cbc="$APP_DIR/VLC.app/Contents/MacOS/VLC http://cbc_r1_vcr.akacast.akamaistream.net/7/723/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vcr --intf=rc"
 
+alias chrome="open -a $APP_DIR/Google\ Chrome.app/"
+
 export PATH="$HOME/bin:$PATH"
 
 export GIT_EDITOR=vim
@@ -149,3 +151,6 @@ alias go='f() { open https://github.com/doximity/$1 };f'
 alias startem="dox-dc up campaigns email-delivery-workers activities-workers campaigns-workers doximity doximity-client-vue"
 alias theworkers="dox-dc up campaigns-daemons activities-daemons"
 
+# google's meet doesn't work so nicely in firefox. ushering in the next era of the fractured internet 
+alias standup="chrome https://meet.google.com/xbd-wrvx-yma"
+alias hangout="chrome"
