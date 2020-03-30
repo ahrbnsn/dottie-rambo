@@ -95,6 +95,7 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias edit="vim"
 alias gto="git-open"
 alias be="bundle exec"
 alias prune="git branch | grep -v 'master' | xargs git branch -D"
@@ -124,8 +125,11 @@ alias configadd='config add -u'
 
 # music stations
 # http://www.cbc.ca/radio/includes/streams.html
+alias playVLC="$APP_DIR/VLC.app/Contents/MacOS/VLC"
+alias classical="playVLC https://stream.wqxr.org/wqxr-web?nyprBrowserId=7b3403ac942b4000 --intf=rc"
 alias wnyc="$APP_DIR/VLC.app/Contents/MacOS/VLC http://www.wnyc.org/stream/wnyc-fm939/mp3.pls --intf=rc"
 alias kexp="$APP_DIR/VLC.app/Contents/MacOS/VLC http://live-aacplus-64.kexp.org/kexp64.aac --intf=rc"
+alias classical="$APP_DIR/VLC.app/Contents/MacOS/VLC https://www.wqxr.org/stream/wqxr/aac.pls --intf=rc"
 alias radiooff="pkill -9 VLC"
 alias cbc="$APP_DIR/VLC.app/Contents/MacOS/VLC http://cbc_r1_vcr.akacast.akamaistream.net/7/723/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vcr --intf=rc"
 
@@ -148,9 +152,49 @@ export PATH="/usr/local/bin:$PATH"
 eval "$("/Users/ashleyrobinson/work/dox-compose/bin/dox-init")"
 alias goc="open https://github.com/doximity/campaigns/"
 alias go='f() { open https://github.com/doximity/$1 };f'
-alias startem="dox-dc up campaigns email-delivery-workers activities-workers campaigns-workers doximity doximity-client-vue"
-alias theworkers="dox-dc up campaigns-daemons activities-daemons"
+alias startemquiet="dox-dc up -d campaigns doximity doximity-client-vue activities"
+alias startema="dox-dc up doximity doximity-client-vue activities"
+alias startem="dox-dc up campaigns doximity doximity-client-vue activities"
+alias startememail="dox-dc up campaigns doximity email-delivery email-delivery-workers doximity-client-vue activities"
+alias theworkers="dox-dc up campaigns-daemons campaigns-workers activities-workers activities-daemons"
+alias campaignsup="dox-dc up campaigns campaigns-daemons campaigns-workers"
+alias quietworkers="dox-dc up -d campaigns-daemons campaigns-workers activities-workers activities-daemons"
+alias activitiesup="dox-dc up activities activities-workers activities-daemons"
+alias doxup="dox-dc up doximity"
+alias jdox="cd ~/work/doximity/"
 
 # google's meet doesn't work so nicely in firefox. ushering in the next era of the fractured internet 
-alias standup="chrome https://meet.google.com/xbd-wrvx-yma"
+alias standup="chrome https://meet.google.com/cqa-syue-tki"
 alias hangout="chrome"
+
+
+alias cat="bat"
+
+
+alias prod-chamber='AWS_REGION=us-east-1 CHAMBER_KMS_KEY_ALIAS=prod-parameter-store aws-vault exec dox-hipaa -- chamber'
+# functions
+#
+function launch-app() {
+    dox-dc up -d "$1"
+  }
+
+function launch-workers() {
+    dox-dc up -d "$1"-workers "$1"-daemons
+  }
+
+function restart-vue() {
+  dox-dc down;
+  launch-app activities;
+  launch-workers activities;
+  launch-app campaigns;
+  launch-workers campaigns;
+  launch-app doximity-client-vue;
+}
+
+function restart-activities() {
+  dox-dc down;
+  launch-app activities;
+  launch-workers activities;
+  launch-app campaigns;
+  launch-workers campaigns;
+}
