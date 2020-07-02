@@ -107,6 +107,7 @@ alias rcop="git diff --name-only --cached | grep '\.rb' | xargs dox-do rubocop -
 alias stash="git stash"
 alias rewind="git reset HEAD~1"
 alias gadd="git add -u"
+alias guntracked="git add $(git ls-files -o --exclude-standard)"
 alias sane="stty sane"
 alias im="vim"
 alias et="ssh 192.168.1.133"
@@ -172,6 +173,10 @@ alias cat="bat"
 
 
 alias prod-chamber='AWS_REGION=us-east-1 CHAMBER_KMS_KEY_ALIAS=prod-parameter-store aws-vault exec dox-hipaa -- chamber'
+alias rc="dox-do rails c"
+
+alias rubofix='dox-do -T rubocop `git diff --name-only master` --display-cop-names --extra-details -a --force-exclusion'
+
 # functions
 #
 function launch-app() {
