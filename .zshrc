@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export PATH=/usr/local/bin:$PATH
+
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/ashleyrobinson/.oh-my-zsh
 export APP_DIR='/Applications'
@@ -117,6 +120,15 @@ alias rake='noglob bundle exec rake'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias configadd='config add -u'
 
+# I wish i could remember who I got this from
+# basically: alias please='sudo !!'
+# fc = a utility that lets you either list or edit commands in
+# your history
+# -l: list, don't edit
+# -n: don't show the numbers
+# -1: the last command
+alias please='sudo $(fc -ln -1)'
+
 # music stations
 # http://www.cbc.ca/radio/includes/streams.html
 alias wnyc="$APP_DIR/VLC.app/Contents/MacOS/VLC http://www.wnyc.org/stream/wnyc-fm939/mp3.pls --intf=rc"
@@ -136,3 +148,13 @@ source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export PATH="/usr/local/bin:$PATH"
 
 [[ -f ~/.zshrc.secrets ]] && source ~/.zshrc.secrets
+
+
+# Added geckodriver to factory/bin in order to use selenium with firefox
+export PATH="$PATH:$HOME/factory/bin"
+
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
