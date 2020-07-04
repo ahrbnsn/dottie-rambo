@@ -1,18 +1,22 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+bindkey -M viins 'jk' vi-cmd-mode
+#https://github.com/robbyrussell/oh-my-zsh/issues/1720#issuecomment-499812609
+bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/ashleyrobinson/.oh-my-zsh
-export UMBRELLA_PROJECT_PATH='../umbrella'
 export APP_DIR='/Applications'
 
-export PROJECT_DIR='/Users/ashleyrobinson/workspace'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ZSH_THEME="agnoster"
 ZSH_THEME="robbyrussell"
+eval "$(rbenv init -)"
 
-source '/Users/ashleyrobinson/workspace/git-subrepo/.rc'
+# source '/Users/ashleyrobinson/workspace/git-subrepo/.rc'
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -26,7 +30,7 @@ source '/Users/ashleyrobinson/workspace/git-subrepo/.rc'
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
 
-# Uncomment the following line to disable colors in ls.
+# Uncomment the following line to disable colors in ls.RT
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
@@ -55,16 +59,17 @@ source '/Users/ashleyrobinson/workspace/git-subrepo/.rc'
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
 # Jump jump!
+
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+export EDITOR='vim'
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -90,18 +95,19 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias edit="vim"
 alias gto="git-open"
 alias be="bundle exec"
-alias mux="tmuxinator"
 alias prune="git branch | grep -v 'master' | xargs git branch -D"
 alias amendit="git commit --amend --no-edit"
 alias gpof="git push origin head -f"
-alias editzsh="vim ~/.zshrc"
+alias editzsh="vim ~/.zshrc && source ~/.zshrc"
 alias sourcezsh="source ~/.zshrc"
-alias rcop="git diff --name-only --cached | grep '\.rb' | xargs bundle exec rubocop -a"
+alias rcop="git diff --name-only --cached | grep '\.rb' | xargs dox-do rubocop -a"
 alias stash="git stash"
 alias rewind="git reset HEAD~1"
 alias gadd="git add -u"
+alias guntracked="git add $(git ls-files -o --exclude-standard)"
 alias sane="stty sane"
 alias im="vim"
 alias et="ssh 192.168.1.133"
@@ -120,29 +126,80 @@ alias configadd='config add -u'
 
 # music stations
 # http://www.cbc.ca/radio/includes/streams.html
+alias playVLC="$APP_DIR/VLC.app/Contents/MacOS/VLC"
+alias classical="playVLC https://stream.wqxr.org/wqxr-web?nyprBrowserId=7b3403ac942b4000 --intf=rc"
 alias wnyc="$APP_DIR/VLC.app/Contents/MacOS/VLC http://www.wnyc.org/stream/wnyc-fm939/mp3.pls --intf=rc"
 alias kexp="$APP_DIR/VLC.app/Contents/MacOS/VLC http://live-aacplus-64.kexp.org/kexp64.aac --intf=rc"
+alias classical="$APP_DIR/VLC.app/Contents/MacOS/VLC https://www.wqxr.org/stream/wqxr/aac.pls --intf=rc"
 alias radiooff="pkill -9 VLC"
 alias cbc="$APP_DIR/VLC.app/Contents/MacOS/VLC http://cbc_r1_vcr.akacast.akamaistream.net/7/723/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vcr --intf=rc"
 
-export PATH="$HOME/.bin:$PATH"
+alias chrome="open -a $APP_DIR/Google\ Chrome.app/"
+
+export PATH="$HOME/bin:$PATH"
 
 export GIT_EDITOR=vim
 
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+w
 . `brew --prefix`/etc/profile.d/z.sh
 
 # recommended by brew doctor
 export PATH="/usr/local/bin:$PATH"
-eval "$(rbenv init - zsh --no-rehash)"
 
-
-# Secret config
 [[ -f ~/.zshrc.secrets ]] && source ~/.zshrc.secrets
 
-# Kubernetes magic
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-eval "$(kubectl completion zsh)"
-eval "$(helm completion zsh)"
+# doximity
+eval "$("/Users/ashleyrobinson/work/dox-compose/bin/dox-init")"
+alias goc="open https://github.com/doximity/campaigns/"
+alias go='f() { open https://github.com/doximity/$1 };f'
+alias startemquiet="dox-dc up -d campaigns doximity doximity-client-vue activities"
+alias startema="dox-dc up doximity doximity-client-vue activities"
+alias startem="dox-dc up campaigns doximity doximity-client-vue activities"
+alias startememail="dox-dc up campaigns doximity email-delivery email-delivery-workers doximity-client-vue activities"
+alias theworkers="dox-dc up campaigns-daemons campaigns-workers activities-workers activities-daemons"
+alias campaignsup="dox-dc up campaigns campaigns-daemons campaigns-workers"
+alias quietworkers="dox-dc up -d campaigns-daemons campaigns-workers activities-workers activities-daemons"
+alias activitiesup="dox-dc up activities activities-workers activities-daemons"
+alias doxup="dox-dc up doximity"
+alias jdox="cd ~/work/doximity/"
+
+# google's meet doesn't work so nicely in firefox. ushering in the next era of the fractured internet 
+alias standup="chrome https://meet.google.com/cqa-syue-tki"
+alias hangout="chrome"
+
+
+alias cat="bat"
+
+
+alias prod-chamber='AWS_REGION=us-east-1 CHAMBER_KMS_KEY_ALIAS=prod-parameter-store aws-vault exec dox-hipaa -- chamber'
+alias rc="dox-do rails c"
+
+alias rubofix='dox-do -T rubocop `git diff --name-only master` --display-cop-names --extra-details -a --force-exclusion'
+
+# functions
+#
+function launch-app() {
+    dox-dc up -d "$1"
+  }
+
+function launch-workers() {
+    dox-dc up -d "$1"-workers "$1"-daemons
+  }
+
+function restart-vue() {
+  dox-dc down;
+  launch-app activities;
+  launch-workers activities;
+  launch-app campaigns;
+  launch-workers campaigns;
+  launch-app doximity-client-vue;
+}
+
+function restart-activities() {
+  dox-dc down;
+  launch-app activities;
+  launch-workers activities;
+  launch-app campaigns;
+  launch-workers campaigns;
+}
