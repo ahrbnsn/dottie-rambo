@@ -14,7 +14,20 @@ export APP_DIR='/Applications'
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="agnoster"
 ZSH_THEME="robbyrussell"
-eval "$(rbenv init -)"
+
+# rbenv instructions
+#
+# ruby-build installs a non-Homebrew OpenSSL for each Ruby version installed and these are never upgraded.
+
+# To link Rubies to Homebrew's OpenSSL 1.1 (which is upgraded) add the following
+# to your ~/.zshrc:
+  # export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+
+# Note: this may interfere with building old versions of Ruby (e.g <2.4) that use
+# OpenSSL <1.1.
+
+# eval "$(rbenv init -)"
+# export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 # source '/Users/ashleyrobinson/workspace/git-subrepo/.rc'
 # Uncomment the following line to use case-sensitive completion.
@@ -95,7 +108,9 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias edit="vim"
+alias edit="nvim"
+alias nv="nvim"
+alias now="vercel"
 alias gto="git-open"
 alias be="bundle exec"
 alias prune="git branch | grep -v 'master' | xargs git branch -D"
@@ -110,9 +125,6 @@ alias gadd="git add -u"
 alias guntracked="git add $(git ls-files -o --exclude-standard)"
 alias sane="stty sane"
 alias im="vim"
-alias et="ssh 192.168.1.133"
-alias controlc="ssh petey@192.168.1.1"
-alias pete="ssh petey@192.168.1.1"
 alias ip="curl -s http://checkip.dyndns.org/ | sed 's/[a-zA-Z<>/ :]//g'"
 alias :qall="exit"
 alias xit="exit"
@@ -151,18 +163,17 @@ export PATH="/usr/local/bin:$PATH"
 
 # doximity
 eval "$("/Users/ashleyrobinson/work/dox-compose/bin/dox-init")"
+
 alias goc="open https://github.com/doximity/campaigns/"
 alias go='f() { open https://github.com/doximity/$1 };f'
 alias startemquiet="dox-dc up -d campaigns doximity doximity-client-vue activities"
-alias startema="dox-dc up doximity doximity-client-vue activities"
-alias startem="dox-dc up campaigns doximity doximity-client-vue activities"
-alias startememail="dox-dc up campaigns doximity email-delivery email-delivery-workers doximity-client-vue activities"
 alias theworkers="dox-dc up campaigns-daemons campaigns-workers activities-workers activities-daemons"
 alias campaignsup="dox-dc up campaigns campaigns-daemons campaigns-workers"
 alias quietworkers="dox-dc up -d campaigns-daemons campaigns-workers activities-workers activities-daemons"
 alias activitiesup="dox-dc up activities activities-workers activities-daemons"
 alias doxup="dox-dc up doximity"
 alias jdox="cd ~/work/doximity/"
+alias dca="dox-dc up -d campaigns doximity activities"
 
 # google's meet doesn't work so nicely in firefox. ushering in the next era of the fractured internet 
 alias standup="chrome https://meet.google.com/cqa-syue-tki"
@@ -179,6 +190,26 @@ alias rubofix='dox-do -T rubocop `git diff --name-only master` --display-cop-nam
 
 # functions
 #
+#
+function logs() {
+  dox-dc logs -f "$1"
+}
+
+function startem() {
+  if [ -z "$1" ]
+  then
+    dox-dc up campaigns doximity doximity-client-vue activities
+  else
+    dox-dc up campaigns doximity doximity-client-vue activities "$1"
+  fi
+}
+
+function migrate() {
+  dox-do -s doximity rails db:migrate;
+  dox-do -s activities rails db:migrate;
+  dox-do -s campaigns rails db:migrate;
+}
+
 function launch-app() {
     dox-dc up -d "$1"
   }
