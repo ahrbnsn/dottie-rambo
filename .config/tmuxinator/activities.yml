@@ -1,0 +1,15 @@
+# /Users/ashleyrobinson/.config/tmuxinator/activities.yml
+
+name: activities
+root: ~/work/activities
+
+on_project_first_start: dox-dc up -d activities
+on_project_stop: dox-dc stop activities
+attach: false
+
+windows:
+  - EDITOR: nv .
+  - TEST:
+  - CONSOLE: sleep 10 && dox-do rails c
+  - LOGS: dox-dc logs -f activities
+

@@ -82,7 +82,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -108,6 +108,10 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+# to ignore the alias, and run actual vim '\vim'
+alias vim="nvim"
+alias code="nvim ."
 alias edit="nvim"
 alias nv="nvim"
 alias now="vercel"
@@ -234,3 +238,24 @@ function restart-activities() {
   launch-app campaigns;
   launch-workers campaigns;
 }
+
+function hackit() {
+  tmuxinator start pat -n "$(basename $PWD)"-chill workspace=$PWD
+}
+
+alias h="hackit"
+
+function t() {
+  if [ -z "$1" ]; then
+    project=$(basename $PWD)
+    if [ project = "doximity-client-vue" ]; then
+      project="vue"
+    fi
+    tmuxinator start "$project"
+  else
+    tmuxinator start "$1"
+  fi
+}
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

@@ -31,3 +31,5 @@
 	conflictstyle = diff3
 [rebase]
 	instructionFormat = (%an <%ae>) %s
+[init]
+	defaultBranch = main
