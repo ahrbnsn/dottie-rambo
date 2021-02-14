@@ -191,6 +191,7 @@ alias prod-chamber='AWS_REGION=us-east-1 CHAMBER_KMS_KEY_ALIAS=prod-parameter-st
 alias rc="dox-do rails c"
 
 alias rubofix='dox-do -T rubocop `git diff --name-only master` --display-cop-names --extra-details -a --force-exclusion'
+alias dox-cd="dox-dc"
 
 # functions
 #
@@ -240,7 +241,7 @@ function restart-activities() {
 }
 
 function hackit() {
-  tmuxinator start pat -n "$(basename $PWD)"-chill workspace=$PWD
+  tmuxinator start pat -n "$(basename $PWD)"-chill workspace=$PWD && exit
 }
 
 alias h="hackit"
@@ -251,9 +252,9 @@ function t() {
     if [ project = "doximity-client-vue" ]; then
       project="vue"
     fi
-    tmuxinator start "$project"
+    tmuxinator start "$project" && exit
   else
-    tmuxinator start "$1"
+    tmuxinator start "$1" && exit
   fi
 }
 

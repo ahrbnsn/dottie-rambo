@@ -1,8 +1,8 @@
 
 " Mappings ------- {{{
 inoremap <c-u> <esc>viwUea
-nnoremap + ddkP
-nnoremap - ddp
+" nnoremap + ddkP
+" nnoremap - ddp
 nnoremap <leader>ev :vsplit ~/.vimrc.local<cr>
 imap jk <Esc>
 " }}}
@@ -27,6 +27,7 @@ set noswapfile
 set clipboard=unnamed
 " }}}
 "
+" set termguicolors
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
