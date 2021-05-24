@@ -119,7 +119,7 @@ alias gto="git-open"
 alias be="bundle exec"
 alias prune="git branch | grep -v 'master' | xargs git branch -D"
 alias amendit="git commit --amend --no-edit"
-alias gpof="git push origin head -f"
+alias gpof="git push origin head --force-with-lease"
 alias editzsh="vim ~/.zshrc && source ~/.zshrc"
 alias sourcezsh="source ~/.zshrc"
 alias rcop="git diff --name-only --cached | grep '\.rb' | xargs dox-do rubocop -a"
@@ -152,6 +152,9 @@ alias cbc="$APP_DIR/VLC.app/Contents/MacOS/VLC http://cbc_r1_vcr.akacast.akamais
 
 alias chrome="open -a $APP_DIR/Google\ Chrome.app/"
 
+# alias savevideo="youtube-dl -o -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' '~/Desktop/transfer_station/videos/%(title)s-%(id)s.%(ext)s' --merge-output-format mp4 --add-metadata --write-sub"
+alias savevideo="youtube-dl -o '~/Desktop/transfer_station/videos/%(title)s-%(id)s.%(ext)s' --restrict-filenames --add-metadata --write-sub --write-info-json"
+
 export PATH="$HOME/bin:$PATH"
 
 export GIT_EDITOR=vim
@@ -179,6 +182,8 @@ alias doxup="dox-dc up doximity"
 alias jdox="cd ~/work/doximity/"
 alias dca="dox-dc up -d campaigns doximity activities"
 
+alias dox-cd="dox-dc"
+
 # google's meet doesn't work so nicely in firefox. ushering in the next era of the fractured internet 
 alias standup="chrome https://meet.google.com/cqa-syue-tki"
 alias hangout="chrome"
@@ -192,6 +197,8 @@ alias rc="dox-do rails c"
 
 alias rubofix='dox-do -T rubocop `git diff --name-only master` --display-cop-names --extra-details -a --force-exclusion'
 alias dox-cd="dox-dc"
+
+alias notes="t notes"
 
 # functions
 #
@@ -239,6 +246,16 @@ function restart-activities() {
   launch-app campaigns;
   launch-workers campaigns;
 }
+  function dox-debugger() {
+     service=$1
+     dox-dc stop $service && dox-dc up -d $service
+     dox-attach $service
+   }
+  
+   function dox-attach() {
+     service=$1
+     docker attach $(dox-dc ps -q $service)
+  }
 
 function hackit() {
   tmuxinator start pat -n "$(basename $PWD)"-chill workspace=$PWD && exit
@@ -256,6 +273,16 @@ function t() {
   else
     tmuxinator start "$1" && exit
   fi
+}
+
+# Markdown preview command line fun
+alias markdown-preview="yarn --cwd ~/work/markdown-preview dev"
+alias preview="node ~/work/markdown-preview/utils/sync -w"
+
+function toc() {
+  file="$PWD/$1"
+  echo "$file"
+  yarn --cwd ~/work/markdown-preview markdown-toc -i "$file"
 }
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
