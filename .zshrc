@@ -153,7 +153,8 @@ alias cbc="$APP_DIR/VLC.app/Contents/MacOS/VLC http://cbc_r1_vcr.akacast.akamais
 alias chrome="open -a $APP_DIR/Google\ Chrome.app/"
 
 # alias savevideo="youtube-dl -o -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' '~/Desktop/transfer_station/videos/%(title)s-%(id)s.%(ext)s' --merge-output-format mp4 --add-metadata --write-sub"
-alias savevideo="youtube-dl -o '~/Desktop/transfer_station/videos/%(title)s-%(id)s.%(ext)s' --restrict-filenames --add-metadata --write-sub --write-info-json"
+# alias savevideo="youtube-dl -o '~/Desktop/transfer_station/videos/%(title)s-%(id)s.%(ext)s' --restrict-filenames --add-metadata --write-sub --write-info-json"
+alias savevideo="youtube-dl -o '~/Desktop/transfer_station/videos/%(title)s-%(id)s.%(ext)s' --restrict-filenames --add-metadata --write-sub"
 
 export PATH="$HOME/bin:$PATH"
 
